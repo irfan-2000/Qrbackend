@@ -125,6 +125,40 @@ namespace QrBackend.Controllers
             var result = _objConvert.getTableSessionCode(tableNumber);
             return Ok(new  { Code = result });
         }
+        [HttpGet("Get_Order_Status")]
+        public IActionResult Get_Order_Status(string Orderid)
+        {
+            var result = _objConvert.Get_Order_Status(Orderid);
+            return Ok(result);
+        }
+
+        [HttpPost("acceptOrder")]
+        public IActionResult acceptOrder(string OrderID,string purpose)
+        {
+            var result = _objConvert.acceptOrder(OrderID,purpose);
+            return Json(new { status = result });
+        }
+
+
+        [HttpPost("ClearOrder")]
+        public IActionResult ClearOrder(int tableNumber)
+        {
+            var result = _objConvert.ClearOrder(tableNumber);
+            return Json(new { status = result });
+        }
+
+        [HttpGet("CheckOrder")]
+        public IActionResult CheckOrder(int tableNumber)
+        {
+            var result = _objConvert.CheckOrder(tableNumber);
+            return Json(new { status = result });
+        }
+
+
+
+
+
+
 
 
         [NonAction]

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Microsoft.AspNetCore.Http;
 namespace QrBackend.Models
 {
     public class RestaurantDataModel
@@ -78,6 +78,10 @@ namespace QrBackend.Models
         public string Signature { get; set; }
     }
 
+    public class ImageUploadRequest
+    {
+        public IFormFile Image { get; set; }
+    }
 
 
 

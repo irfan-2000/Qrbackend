@@ -345,6 +345,121 @@ namespace QrBackend.Models
             return Code;
         }
 
+        public string Get_Order_Status(string OrderId)
+        {
+            var status = "";
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("Get_Ordered_status", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure; // Ensure it's recognized as a stored procedure
+
+                    cmd.Parameters.AddWithValue("@OrderId", OrderId);
+                    var dt = cs.Bind_DataTable(cmd);
+                    if (dt.Rows.Count > 0) // Check if any rows were returned
+                    {
+                        status = !string.IsNullOrEmpty(Convert.ToString(dt.Rows[0]["Status"]))
+                            ? Convert.ToString(dt.Rows[0]["Status"])
+                            : "";
+                    }
+                   
+
+
+
+
+
+
+                }
+            }
+            catch (Exception ex) { }
+
+
+
+            return status;
+        }
+
+        
+        public bool acceptOrder(string OrderId,string purpose)
+        {
+            bool status = false;
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("UpdateOrderStatus", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@OrderId", OrderId);
+                    cmd.Parameters.AddWithValue("@Purpose", purpose);
+
+                    var dt = cs.Run_SPQuery(cmd);
+                    if(dt == 1)
+                    {
+                        status = true;
+                    }
+                }
+            }
+            catch (Exception) { }
+            return status;
+        }
+        public bool ClearOrder(int tableNumber)
+        {
+            bool status = false;
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("ClearOrders", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@TableNumber", tableNumber);
+                    var dt = cs.Run_SPQuery(cmd);
+                    if(dt == -1)
+                    {
+                        status = true;
+                    }
+                }
+            }catch(Exception ex)
+            {
+
+            }
+            return status;
+        }
+
+
+        public bool CheckOrder(int tableNumber)
+        {
+            bool Status = false;
+            try
+            {
+                using (SqlCommand cmd = new SqlCommand("CheckOrders", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@TableNumber", tableNumber);
+                    var dt = cs.Bind_DataTable(cmd);
+                    if (dt.Rows.Count > 0)
+                    {
+                        var data = !string.IsNullOrEmpty(Convert.ToString(dt.Rows[0]["Status"])) ? Convert.ToString(dt.Rows[0]["Status"]) : "";
+                        Status = Convert.ToBoolean(data);
+                    }
+
+                }
+            }
+            catch (Exception ex) { }
+
+            return Status;
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     }

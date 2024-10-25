@@ -138,3 +138,5 @@ E:\Qrbased\qrbased\QrBackend\QrBackend\obj\Debug\net5.0\ref\QrBackend.dll
 E:\Qrbased\qrbased\QrBackend\QrBackend\bin\Debug\net5.0\ref\QrBackend.dll
 E:\Qrbased\qrbased\QrBackend\QrBackend\obj\Debug\net5.0\staticwebassets\QrBackend.StaticWebAssets.xml
 E:\Qrbased\qrbased\QrBackend\QrBackend\obj\Debug\net5.0\QrBackend.csproj.CopyComplete
+E:\Qrbased\qrbased\QrBackend\QrBackend\bin\Debug\net5.0\CloudinaryDotNet.dll
+E:\Qrbased\qrbased\QrBackend\QrBackend\bin\Debug\net5.0\dotenv.net.dll

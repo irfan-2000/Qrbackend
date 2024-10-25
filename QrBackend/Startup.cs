@@ -20,20 +20,18 @@ namespace QrBackend
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddScoped<DataConversion>(); // or AddSingleton<DataConversion>() if it should be a singleton
+            services.AddScoped<DataConversion>(); // Use AddSingleton<DataConversion>() if it should be a singleton
             services.AddTransient<DataAccessLayer>();
-        
 
-
-
+            // Define CORS policies
             services.AddCors(options =>
-           {
-               options.AddPolicy("AllowSpecificOrigin",
-                   builder => builder.WithOrigins("http://localhost:4200") // Your frontend URL
-                                     .AllowAnyHeader()
-                          .AllowAnyMethod());
+            {
+                options.AddPolicy("AllowAllOrigins", // Change to AllowAllOrigins
+                    builder => builder.AllowAnyOrigin() // Allow any origin
+                                      .AllowAnyHeader()
+                                      .AllowAnyMethod());
             });
-            services.AddControllers();
+
 
             // Add Swagger services with basic configuration
             services.AddSwaggerGen(c =>
@@ -41,6 +39,7 @@ namespace QrBackend
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
             });
         }
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -60,7 +59,7 @@ namespace QrBackend
 
             app.UseRouting();
 
-            app.UseCors("AllowSpecificOrigin");
+            app.UseCors("AllowAllOrigins");
 
             // Enable Swagger middleware
             app.UseSwagger();
